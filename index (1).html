@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wireframe – Sistem Informasi Stok Bahan Baku Kedai Farkey</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --farkey-primary: #1a3a2a;
+      --farkey-accent: #e8511a;
+      --farkey-accent-soft: #fdebd8;
+      --farkey-gold: #e8511a;
+      --farkey-red: #e74c3c;
+      --farkey-yellow: #f39c12;
+      --farkey-bg: #f4f6f5;
+      --farkey-sidebar: #1a3a2a;
+      --farkey-sidebar-hover: #22503a;
+      --farkey-card: #ffffff;
+      --farkey-border: #dee2e6;
+      --farkey-text: #1e2d26;
+      --farkey-muted: #6b7c74;
+      --sidebar-w: 260px;
+      --topbar-h: 62px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--farkey-bg);
+      color: var(--farkey-text);
+      font-size: 14px;
+    }
+
+    /* ──────────────────── PAGE NAVIGATOR ──────────────────── */
+    #page-nav {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: flex-end;
+    }
+    #page-nav button {
+      background: var(--farkey-primary);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background .2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,.25);
+    }
+    #page-nav button:hover { background: var(--farkey-accent); color: #1a3a2a; }
+    #page-nav button.active { background: var(--farkey-gold); color: #1a3a2a; }
+    #nav-toggle {
+      background: var(--farkey-primary) !important;
+      font-size: 13px !important;
+      padding: 8px 16px !important;
+    }
+
+    /* ──────────────────── PAGE WRAPPER ──────────────────── */
+    .page-section { display: none; }
+    .page-section.active { display: block; }
+
+    /* ──────────────────── LOGIN PAGE ──────────────────── */
+    .login-wrapper {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1a3a2a 0%, #0d2218 60%, #17301f 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .login-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 48px 44px 40px;
+      width: 400px;
+      max-width: 95vw;
+      box-shadow: 0 24px 60px rgba(0,0,0,.35);
+    }
+    .login-logo {
+      width: 68px; height: 68px;
+      background: var(--farkey-primary);
+      border-radius: 18px;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 18px;
+      font-size: 30px; color: var(--farkey-accent);
+    }
+    .login-title { text-align: center; font-size: 20px; font-weight: 800; color: var(--farkey-primary); line-height: 1.2; }
+    .login-sub { text-align: center; font-size: 12px; color: var(--farkey-muted); margin-bottom: 32px; margin-top: 4px; }
+    .form-label-sm { font-weight: 600; font-size: 12px; color: var(--farkey-primary); margin-bottom: 5px; }
+    .form-control-wf {
+      border: 1.5px solid var(--farkey-border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      width: 100%;
+      outline: none;
+      transition: border-color .2s;
+      background: #f9fafb;
+    }
+    .form-control-wf:focus { border-color: var(--farkey-accent); background: #fff; }
+    .input-icon-wrap { position: relative; }
+    .input-icon-wrap .icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--farkey-muted); font-size: 13px; }
+    .input-icon-wrap .form-control-wf { padding-left: 36px; }
+    .btn-login {
+      width: 100%; background: var(--farkey-primary); color: #fff;
+      border: none; border-radius: 10px; padding: 12px;
+      font-size: 15px; font-weight: 700; cursor: pointer;
+      transition: background .2s, transform .1s;
+    }
+    .btn-login:hover { background: #22503a; }
+    .login-footer { text-align: center; font-size: 12px; color: var(--farkey-muted); margin-top: 18px; }
+    .login-footer a { color: var(--farkey-accent); text-decoration: none; font-weight: 600; }
+    .role-badge-row { display: flex; gap: 8px; justify-content: center; margin-bottom: 24px; flex-wrap: wrap; }
+    .role-badge {
+      background: var(--farkey-accent-soft); color: var(--farkey-primary);
+      border-radius: 20px; padding: 4px 12px; font-size: 11px; font-weight: 700;
+      border: 1px solid #b2e5ca;
+    }
+
+    /* ──────────────────── SIDEBAR ──────────────────── */
+    .wf-sidebar {
+      position: fixed; left: 0; top: 0; bottom: 0;
+      width: var(--sidebar-w);
+      background: var(--farkey-sidebar);
+      z-index: 100;
+      display: flex; flex-direction: column;
+      overflow-y: auto;
+      transition: transform .3s;
+    }
+    .sidebar-brand {
+      padding: 20px 20px 16px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      display: flex; align-items: center; gap: 12px;
+    }
+    .brand-icon {
+      width: 42px; height: 42px; background: var(--farkey-accent);
+      border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      font-size: 20px; color: var(--farkey-primary); flex-shrink: 0;
+    }
+    .brand-text { color: #fff; }
+    .brand-text .brand-name { font-size: 14px; font-weight: 800; line-height: 1; }
+    .brand-text .brand-sub { font-size: 10px; color: rgba(255,255,255,.5); margin-top: 2px; font-weight: 500; }
+
+    .sidebar-section-label {
+      padding: 14px 20px 4px;
+      font-size: 10px; font-weight: 700; color: rgba(255,255,255,.35);
+      text-transform: uppercase; letter-spacing: 1px;
+    }
+    .sidebar-nav { padding: 4px 12px; }
+    .sidebar-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 12px; border-radius: 10px;
+      color: rgba(255,255,255,.7); font-size: 13px; font-weight: 500;
+      cursor: pointer; transition: all .2s; text-decoration: none;
+      margin-bottom: 2px;
+    }
+    .sidebar-item i { width: 18px; text-align: center; font-size: 14px; }
+    .sidebar-item:hover { background: rgba(255,255,255,.08); color: #fff; }
+    .sidebar-item.active { background: var(--farkey-accent); color: var(--farkey-primary); font-weight: 700; }
+    .sidebar-item .badge-pill {
+      margin-left: auto; background: var(--farkey-red);
+      color: #fff; border-radius: 10px; font-size: 10px; padding: 2px 7px;
+    }
+    .sidebar-footer {
+      margin-top: auto; padding: 16px 12px;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .sidebar-user {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 12px; border-radius: 10px;
+    }
+    .avatar-sm {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: var(--farkey-accent); display: flex; align-items: center;
+      justify-content: center; font-size: 14px; font-weight: 700; color: var(--farkey-primary);
+      flex-shrink: 0;
+    }
+    .user-info .user-name { font-size: 13px; font-weight: 700; color: #fff; }
+    .user-info .user-role { font-size: 11px; color: rgba(255,255,255,.45); }
+
+    /* ──────────────────── TOP NAVBAR ──────────────────── */
+    .wf-topbar {
+      position: fixed; left: var(--sidebar-w); right: 0; top: 0;
+      height: var(--topbar-h); background: #fff;
+      border-bottom: 1px solid var(--farkey-border);
+      display: flex; align-items: center; padding: 0 24px;
+      z-index: 99; gap: 16px;
+    }
+    .topbar-title { font-size: 16px; font-weight: 800; color: var(--farkey-primary); flex: 1; }
+    .topbar-actions { display: flex; align-items: center; gap: 12px; }
+    .btn-icon {
+      width: 38px; height: 38px; border-radius: 10px; border: 1.5px solid var(--farkey-border);
+      background: #fff; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: var(--farkey-muted); position: relative; transition: all .2s;
+    }
+    .btn-icon:hover { border-color: var(--farkey-accent); color: var(--farkey-primary); }
+    .notif-dot {
+      position: absolute; top: 6px; right: 6px;
+      width: 8px; height: 8px; background: var(--farkey-red);
+      border-radius: 50%; border: 2px solid #fff;
+    }
+    .topbar-user { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+    .topbar-user-info .t-name { font-size: 13px; font-weight: 700; color: var(--farkey-primary); }
+    .topbar-user-info .t-role { font-size: 11px; color: var(--farkey-muted); }
+
+    /* ──────────────────── MAIN CONTENT ──────────────────── */
+    .wf-main {
+      margin-left: var(--sidebar-w);
+      margin-top: var(--topbar-h);
+      padding: 28px 28px 60px;
+      min-height: calc(100vh - var(--topbar-h));
+    }
+    .page-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 24px; flex-wrap: wrap; gap: 12px;
+    }
+    .page-header-left h1 { font-size: 22px; font-weight: 800; color: var(--farkey-primary); }
+    .page-header-left p { font-size: 13px; color: var(--farkey-muted); margin-top: 2px; }
+    .breadcrumb-wf {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12px; color: var(--farkey-muted);
+    }
+    .breadcrumb-wf span { color: var(--farkey-accent); font-weight: 600; }
+
+    /* ──────────────────── CARDS ──────────────────── */
+    .stat-card {
+      background: var(--farkey-card); border-radius: 16px;
+      padding: 22px 20px; border: 1px solid var(--farkey-border);
+      position: relative; overflow: hidden; transition: box-shadow .2s;
+    }
+    .stat-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,.09); }
+    .stat-card .stat-icon {
+      width: 48px; height: 48px; border-radius: 13px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; margin-bottom: 14px;
+    }
+    .stat-card .stat-label { font-size: 12px; font-weight: 600; color: var(--farkey-muted); text-transform: uppercase; letter-spacing: .5px; }
+    .stat-card .stat-value { font-size: 32px; font-weight: 800; color: var(--farkey-primary); line-height: 1.1; margin: 4px 0; font-family: 'DM Mono', monospace; }
+    .stat-card .stat-desc { font-size: 12px; color: var(--farkey-muted); }
+    .stat-card .trend { display: flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 600; margin-top: 8px; }
+    .trend.up { color: var(--farkey-accent); }
+    .trend.down { color: var(--farkey-red); }
+    .trend.warn { color: var(--farkey-yellow); }
+
+    .icon-green { background: var(--farkey-accent-soft); color: var(--farkey-accent); }
+    .icon-gold { background: #fdf3dc; color: var(--farkey-gold); }
+    .icon-red { background: #fde8e8; color: var(--farkey-red); }
+    .icon-blue { background: #e8f0fe; color: #4285f4; }
+
+    /* ──────────────────── TABLE ──────────────────── */
+    .wf-table-card {
+      background: #fff; border-radius: 16px;
+      border: 1px solid var(--farkey-border); overflow: hidden;
+    }
+    .wf-table-header {
+      padding: 18px 20px 14px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+      border-bottom: 1px solid var(--farkey-border);
+    }
+    .wf-table-title { font-size: 15px; font-weight: 700; color: var(--farkey-primary); }
+    .wf-table-actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .wf-table { width: 100%; border-collapse: collapse; }
+    .wf-table thead tr { background: #f8faf9; }
+    .wf-table thead th {
+      padding: 12px 16px; font-size: 11px; font-weight: 700;
+      color: var(--farkey-muted); text-transform: uppercase; letter-spacing: .5px;
+      border-bottom: 1px solid var(--farkey-border); white-space: nowrap;
+    }
+    .wf-table tbody tr { border-bottom: 1px solid #f0f0f0; transition: background .15s; }
+    .wf-table tbody tr:last-child { border-bottom: none; }
+    .wf-table tbody tr:hover { background: #f8faf9; }
+    .wf-table tbody td { padding: 13px 16px; font-size: 13px; vertical-align: middle; }
+    .wf-table .td-num { font-family: 'DM Mono', monospace; font-size: 13px; }
+
+    /* ──────────────────── BADGES ──────────────────── */
+    .badge-status {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700;
+    }
+    .badge-aman { background: var(--farkey-accent-soft); color: #1a6840; }
+    .badge-hampir { background: #fdf3dc; color: #7a4f00; }
+    .badge-habis { background: #fde8e8; color: #8b0000; }
+    .badge-masuk { background: #e8f0fe; color: #1a56d4; }
+
+    /* ──────────────────── BUTTONS ──────────────────── */
+    .btn-wf {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 16px; border-radius: 10px; font-size: 13px; font-weight: 600;
+      cursor: pointer; border: none; transition: all .2s; font-family: 'Plus Jakarta Sans', sans-serif;
+      text-decoration: none;
+    }
+    .btn-primary-wf { background: var(--farkey-primary); color: #fff; }
+    .btn-primary-wf:hover { background: #22503a; }
+    .btn-accent-wf { background: var(--farkey-accent); color: var(--farkey-primary); }
+    .btn-accent-wf:hover { background: #27ae60; }
+    .btn-outline-wf { background: #fff; color: var(--farkey-primary); border: 1.5px solid var(--farkey-border); }
+    .btn-outline-wf:hover { border-color: var(--farkey-accent); color: var(--farkey-accent); }
+    .btn-danger-wf { background: #fde8e8; color: var(--farkey-red); }
+    .btn-danger-wf:hover { background: var(--farkey-red); color: #fff; }
+    .btn-sm-wf { padding: 5px 10px; font-size: 12px; border-radius: 8px; }
+    .btn-gold-wf { background: var(--farkey-gold); color: #fff; }
+    .btn-gold-wf:hover { background: #c8880a; }
+
+    /* ──────────────────── SEARCH / FILTER BAR ──────────────────── */
+    .filter-bar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; padding: 14px 20px; border-bottom: 1px solid var(--farkey-border); background: #fafcfb; }
+    .search-input-wrap { position: relative; }
+    .search-input-wrap i { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: var(--farkey-muted); font-size: 13px; }
+    .search-input-wrap input {
+      padding: 9px 14px 9px 34px; border-radius: 10px; border: 1.5px solid var(--farkey-border);
+      font-size: 13px; font-family: 'Plus Jakarta Sans', sans-serif; outline: none;
+      transition: border-color .2s; min-width: 220px; background: #fff;
+    }
+    .search-input-wrap input:focus { border-color: var(--farkey-accent); }
+    .filter-select {
+      padding: 9px 12px; border-radius: 10px; border: 1.5px solid var(--farkey-border);
+      font-size: 13px; font-family: 'Plus Jakarta Sans', sans-serif; outline: none;
+      background: #fff; cursor: pointer;
+    }
+
+    /* ──────────────────── FORM CARD ──────────────────── */
+    .form-card {
+      background: #fff; border-radius: 16px;
+      border: 1px solid var(--farkey-border); padding: 28px;
+    }
+    .form-group-wf { margin-bottom: 20px; }
+    .form-group-wf label { display: block; font-size: 12px; font-weight: 700; color: var(--farkey-primary); margin-bottom: 6px; }
+    .form-group-wf .hint { font-size: 11px; color: var(--farkey-muted); margin-top: 4px; }
+    .form-input-wf {
+      width: 100%; padding: 10px 14px; border-radius: 10px;
+      border: 1.5px solid var(--farkey-border); font-size: 14px;
+      font-family: 'Plus Jakarta Sans', sans-serif; outline: none;
+      transition: border-color .2s; background: #f9fafb;
+    }
+    .form-input-wf:focus { border-color: var(--farkey-accent); background: #fff; }
+    .form-select-wf {
+      width: 100%; padding: 10px 14px; border-radius: 10px;
+      border: 1.5px solid var(--farkey-border); font-size: 14px;
+      font-family: 'Plus Jakarta Sans', sans-serif; outline: none;
+      background: #f9fafb; cursor: pointer;
+    }
+    .form-textarea-wf {
+      width: 100%; padding: 10px 14px; border-radius: 10px;
+      border: 1.5px solid var(--farkey-border); font-size: 14px;
+      font-family: 'Plus Jakarta Sans', sans-serif; outline: none;
+      resize: vertical; min-height: 80px; background: #f9fafb;
+    }
+    .form-divider { border: none; border-top: 1px solid var(--farkey-border); margin: 24px 0; }
+    .form-section-title { font-size: 13px; font-weight: 700; color: var(--farkey-primary); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid var(--farkey-accent-soft); }
+
+    /* ──────────────────── CHART PLACEHOLDER ──────────────────── */
+    .chart-placeholder {
+      background: #f8faf9; border-radius: 12px; border: 1.5px dashed #b2e5ca;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 10px; color: var(--farkey-muted); font-size: 13px;
+      padding: 40px 20px; text-align: center;
+    }
+    .chart-placeholder i { font-size: 36px; color: #b2e5ca; }
+    .chart-placeholder .chart-label { font-weight: 700; color: var(--farkey-primary); font-size: 14px; }
+
+    /* ──────────────────── ALERT / EMPTY STATE ──────────────────── */
+    .empty-state {
+      text-align: center; padding: 60px 20px;
+      color: var(--farkey-muted);
+    }
+    .empty-state i { font-size: 48px; color: #cde8d6; margin-bottom: 14px; display: block; }
+    .empty-state .es-title { font-size: 16px; font-weight: 700; color: var(--farkey-primary); margin-bottom: 6px; }
+
+    /* ──────────────────── MINI ACTIVITY ITEM ──────────────────── */
+    .activity-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 20px; border-bottom: 1px solid #f0f0f0;
+    }
+    .activity-item:last-child { border-bottom: none; }
+    .activity-dot {
+      width: 34px; height: 34px; border-radius: 10px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 14px;
+    }
+    .activity-content .act-title { font-size: 13px; font-weight: 600; color: var(--farkey-primary); }
+    .activity-content .act-sub { font-size: 12px; color: var(--farkey-muted); margin-top: 2px; }
+    .activity-time { margin-left: auto; font-size: 11px; color: var(--farkey-muted); white-space: nowrap; }
+
+    /* ──────────────────── STOK MENIPIS ITEM ──────────────────── */
+    .stok-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 20px; border-bottom: 1px solid #f0f0f0;
+    }
+    .stok-item:last-child { border-bottom: none; }
+    .stok-bar-wrap { flex: 1; }
+    .stok-bar-label { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px; }
+    .stok-bar-label .sbl-name { font-weight: 600; color: var(--farkey-primary); }
+    .stok-bar-label .sbl-val { color: var(--farkey-muted); font-family: 'DM Mono', monospace; }
+    .progress-wf { height: 6px; background: #e8f0f0; border-radius: 10px; overflow: hidden; }
+    .progress-fill { height: 100%; border-radius: 10px; }
+
+    /* ──────────────────── PASSWORD PAGE ──────────────────── */
+    .password-card {
+      max-width: 480px; background: #fff; border-radius: 16px;
+      border: 1px solid var(--farkey-border); padding: 32px;
+    }
+    .password-strength { display: flex; gap: 4px; margin-top: 6px; }
+    .ps-bar { flex: 1; height: 4px; background: #e0e0e0; border-radius: 4px; }
+    .ps-bar.filled.weak { background: var(--farkey-red); }
+    .ps-bar.filled.medium { background: var(--farkey-yellow); }
+    .ps-bar.filled.strong { background: var(--farkey-accent); }
+
+    /* ──────────────────── PAGINATION ──────────────────── */
+    .pagination-wf { display: flex; align-items: center; gap: 4px; padding: 14px 20px; border-top: 1px solid var(--farkey-border); justify-content: space-between; }
+    .pagination-wf .pg-info { font-size: 12px; color: var(--farkey-muted); }
+    .pagination-wf .pg-pages { display: flex; gap: 4px; }
+    .pg-btn {
+      width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 600; cursor: pointer; border: 1.5px solid var(--farkey-border);
+      background: #fff; color: var(--farkey-muted); transition: all .2s;
+    }
+    .pg-btn.active { background: var(--farkey-primary); color: #fff; border-color: var(--farkey-primary); }
+    .pg-btn:hover:not(.active) { border-color: var(--farkey-accent); color: var(--farkey-primary); }
+
+    /* ──────────────────── RESPONSIVE ──────────────────── */
+    @media (max-width: 768px) {
+      :root { --sidebar-w: 0px; }
+      .wf-sidebar { transform: translateX(-260px); }
+      .wf-sidebar.open { transform: translateX(0); width: 260px; }
+      .wf-topbar { left: 0; }
+      .wf-main { margin-left: 0; padding: 20px 16px 60px; }
+      #page-nav { bottom: 12px; right: 12px; }
+    }
+
+    /* ──────────────────── OWNER DASHBOARD SPECIFIC ──────────────────── */
+    .kondisi-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 0; border-bottom: 1px solid #f0f0f0;
+    }
+    .kondisi-item:last-child { border-bottom: none; }
+    .kondisi-left { display: flex; align-items: center; gap: 10px; }
+    .kondisi-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .kondisi-name { font-size: 13px; font-weight: 600; color: var(--farkey-primary); }
+    .kondisi-cat { font-size: 11px; color: var(--farkey-muted); }
+
+    /* ──────────────────── UTILITY ──────────────────── */
+    .text-muted-sm { font-size: 11px; color: var(--farkey-muted); }
+    .fw-700 { font-weight: 700; }
+    .gap-8 { gap: 8px; }
+    .d-flex-center { display: flex; align-items: center; }
+    .mt-20 { margin-top: 20px; }
+    .mt-24 { margin-top: 24px; }
+    .mb-24 { margin-bottom: 24px; }
+
+    /* Action btn group */
+    .action-group { display: flex; gap: 6px; }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PAGE NAVIGATOR OVERLAY
+════════════════════════════════════════════════════════════════ -->
+<div id="page-nav">
+  <div id="nav-menu" style="display:none; flex-direction:column; gap:4px; align-items:flex-end;">
+    <button onclick="showPage('login')">🔐 Login</button>
+    <button onclick="showPage('dash-admin')">📊 Dashboard Admin</button>
+    <button onclick="showPage('dash-owner')">👑 Dashboard Owner</button>
+    <button onclick="showPage('bahan-baku')">📦 Kelola Bahan Baku</button>
+    <button onclick="showPage('supplier')">🏭 Kelola Supplier</button>
+    <button onclick="showPage('kategori')">🏷️ Kelola Kategori</button>
+    <button onclick="showPage('satuan')">📐 Kelola Satuan</button>
+    <button onclick="showPage('cek-stok')">🔍 Cek Stok</button>
+    <button onclick="showPage('stok-masuk')">⬇️ Input Stok Masuk</button>
+    <button onclick="showPage('stok-keluar')">⬆️ Input Stok Keluar</button>
+    <button onclick="showPage('laporan')">📋 Laporan Stok</button>
+    <button onclick="showPage('ubah-password')">🔑 Ubah Password</button>
+  </div>
+  <button id="nav-toggle" onclick="toggleNav()">☰ Navigasi Halaman</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PAGE 1 — LOGIN
+════════════════════════════════════════════════════════════════ -->
+<div class="page-section active" id="page-login">
+  <div class="login-wrapper">
+    <div class="login-card">
+      <div class="login-logo"><i class="fas fa-bowl-food"></i></div>
+      <div class="login-title">Kedai Farkey</div>
+      <div class="login-sub">Sistem Informasi Stok Bahan Baku</div>
+      <div class="role-badge-row">
+        <span class="role-badge">Admin</span>
+        <span class="role-badge">Owner</span>
+        <span class="role-badge">Kasir</span>
+      </div>
+      <div style="margin-bottom:16px">
+        <div class="form-label-sm">Username</div>
+        <div class="input-icon-wrap">
+          <i class="fas fa-user icon"></i>
+          <input class="form-control-wf" type="text" placeholder="Masukkan username" />
+        </div>
+      </div>
+      <div style="margin-bottom:20px">
+        <div class="form-label-sm">Password</div>
+        <div class="input-icon-wrap">
+          <i class="fas fa-lock icon"></i>
+          <input class="form-control-wf" type="password" placeholder="Masukkan password" />
+        </div>
+      </div>
+      <button class="btn-login" onclick="showPage('dash-admin')"><i class="fas fa-sign-in-alt"></i> &nbsp;Masuk</button>
+      <div class="login-footer"><a href="#">Lupa password?</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PAGE 2 — DASHBOARD ADMIN
+════════════════════════════════════════════════════════════════ -->
+<div class="page-section" id="page-dash-admin">
+  <!-- SIDEBAR -->
+  <aside class="wf-sidebar" id="sidebar-admin">
+    <div class="sidebar-brand">
+      <div class="brand-icon"><i class="fas fa-bowl-food"></i></div>
+      <div class="brand-text">
+        <div class="brand-name">Kedai Farkey</div>
+        <div class="brand-sub">Stok Bahan Baku</div>
+      </div>
+    </div>
+    <div class="sidebar-section-label">Utama</div>
+    <nav class="sidebar-nav">
+      <a class="sidebar-item active" onclick="showPage('dash-admin')"><i class="fas fa-th-large"></i> Dashboard</a>
+    </nav>
+    <div class="sidebar-section-label">Master Data</div>
+    <nav class="sidebar-nav">
+      <a class="sidebar-item" onclick="showPage('bahan-baku')"><i class="fas fa-box"></i> Bahan Baku</a>
+      <a class="sidebar-item" onclick="showPage('supplier')"><i class="fas fa-truck"></i> Supplier</a>
+      <a class="sidebar-item" onclick="showPage('kategori')"><i class="fas fa-tags"></i> Kategori</a>
+      <a class="sidebar-item" onclick="showPage('satuan')"><i class="fas fa-ruler"></i> Satuan</a>
+    </nav>
+    <div class="sidebar-section-label">Transaksi</div>
+    <nav class="sidebar-nav">
+      <a class="sidebar-item" onclick="showPage('stok-masuk')"><i class="fas fa-arrow-circle-down"></i> Stok Masuk</a>
+      <a class="sidebar-item" onclick="showPage('stok-keluar')"><i class="fas fa-arrow-circle-up"></i> Stok Keluar</a>
+      <a class="sidebar-item" onclick="showPage('cek-stok')"><i class="fas fa-search"></i> Cek Stok <span class="badge-pill">3</span></a>
+    </nav>
+    <div class="sidebar-section-label">Laporan</div>
+    <nav class="sidebar-nav">
+      <a class="sidebar-item" onclick="showPage('laporan')"><i class="fas fa-chart-bar"></i> Laporan Stok</a>
+    </nav>
+    <div class="sidebar-section-label">Akun</div>
+    <nav class="sidebar-nav">
+      <a class="sidebar-item" onclick="showPage('ubah-password')"><i class="fas fa-key"></i> Ubah Password</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="avatar-sm">A</div>
+        <div class="user-info">
+          <div class="user-name">Admin Farkey</div>
+          <div class="user-role">Administrator</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <!-- TOPBAR -->
+  <header class="wf-topbar">
+    <div class="topbar-title">Dashboard</div>
+    <div class="topbar-actions">
+      <div class="btn-icon"><i class="fas fa-bell"></i><div class="notif-dot"></div></div>
+      <div class="btn-icon"><i class="fas fa-cog"></i></div>
+      <div class="topbar-user">
+        <div class="avatar-sm" style="background:#1a3a2a;color:#fff;">A</div>
+        <div class="topbar-user-info">
+          <div class="t-name">Admin Farkey</div>
+          <div class="t-role">Administrator</div>
+        </div>
+        <i class="fas fa-chevron-down" style="font-size:10px;color:var(--farkey-muted);margin-left:4px"></i>
+      </div>
+    </div>
+  </header>
+  <!-- CONTENT -->
+  <main class="wf-main">
+    <div class="page-header">
+      <div class="page-header-left">
+        <h1>Dashboard</h1>
+        <p>Selamat datang, Admin Farkey! Berikut ringkasan kondisi stok hari ini.</p>
+      </div>
+      <div class="d-flex-center gap-8">
+        <span class="text-muted-sm"><i class="fas fa-calendar-alt"></i> Jumat, 05 Juni 2026</span>
+      </div>
+    </div>
+
+    <!-- STAT CARDS -->
+    <div class="row g-3 mb-4">
+      <div class="col-6 col-xl-3">
+        <div class="stat-card">
+          <div class="stat-icon icon-green"><i class="fas fa-box-open"></i></div>
+          <div class="stat-label">Total Bahan Baku</div>
+          <div class="stat-value">48</div>
+          <div class="trend up"><i class="fas fa-arrow-up"></i> 2 bahan baru bulan ini</div>
+        </div>
+      </div>
+      <div class="col-6 col-xl-3">
+        <div class="stat-card">
+          <div class="stat-icon icon-gold"><i class="fas fa-truck"></i></div>
+          <div class="stat-label">Total Supplier</div>
+          <div class="stat-value">12</div>
+          <div class="trend up"><i class="fas fa-check-circle"></i> Semua aktif</div>
+        </div>
+      </div>
+      <div class="col-6 col-xl-3">
+        <div class="stat-card">
+          <div class="stat-icon icon-red"><i class="fas fa-exclamation-triangle"></i></div>
+          <div class="stat-label">Stok Menipis</div>
+          <div class="stat-value">3</div>
+          <div class="trend down"><i class="fas fa-arrow-down"></i> Perlu restock segera</div>
+        </div>
+      </div>
+      <div class="col-6 col-xl-3">
+        <div class="stat-card">
+          <div class="stat-icon icon-blue"><i class="fas fa-exchange-alt"></i></div>
+          <div class="stat-label">Aktivitas Hari Ini</div>
+          <div class="stat-value">7</div>
+          <div class="trend up"><i class="fas fa-arrow-up"></i> 5 masuk, 2 keluar</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHART + STOK MENIPIS -->
+    <div class="row g-3 mb-4">
+      <div class="col-lg-7">
+        <div class="wf-table-card" style="height:100%">
+          <div class="wf-table-header">
+            <div class="wf-table-title"><i class="fas fa-chart-line" style="color:var(--farkey-accent)"></i> Grafik Pergerakan Stok</div>
+            <select class="filter-select" style="padding:6px 10px;font-size:12px">
+              <option>7 Hari Terakhir</option>
+              <option>30 Hari Terakhir</option>
+            </select>
+          </div>
+          <div style="padding:20px">
+            <div class="chart-placeholder" style="min-height:180px">
+              <i class="fas fa-chart-area"></i>
+              <div class="chart-label">Area Chart – Stok Masuk vs Keluar</div>
+              <div>Visualisasi data pergerakan stok per hari</div>
+              <div style="display:flex;gap:16px;margin-top:8px;font-size:12px">
+                <span><span style="display:inline-block;width:12px;height:4px;background:var(--farkey-accent);border-radius:2px;vertical-align:middle;margin-right:4px"></span>Stok Masuk</span>
+                <span><span style="display:inline-block;width:12px;height:4px;background:var(--farkey-red);border-radius:2px;vertical-align:middle;margin-right:4px"></span>Stok Keluar</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="wf-table-card" style="height:100%">
+          <div class="wf-table-header">
+            <div class="wf-table-title"><i class="fas fa-exclamation-circle" style="color:var(--farkey-red)"></i> Stok Menipis</div>
+            <button class="btn-wf btn-outline-wf btn-sm-wf" onclick="showPage('cek-stok')">Lihat Semua</button>
+          </div>
+          <div>
+            <div class="stok-item">
+              <div style="width:36px;height:36px;border-radius:10px;background:#fde8e8;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fas fa-pepper-hot" style="color:var(--farkey-red)"></i></div>
+              <div class="stok-bar-wrap">
+                <div class="stok-bar-label"><span class="sbl-name">Kerupuk Udang</span><span class="sbl-val">200g / min 1kg</span></div>
+                <div class="progress-wf"><div class="progress-fill" style="width:40%;background:var(--farkey-red)"></div></div>
+              </div>
+              <span class="badge-status badge-hampir">Menipis</span>
+            </div>
+            <div class="stok-item">
+              <div style="width:36px;height:36px;border-radius:10px;background:#fdf3dc;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fas fa-seedling" style="color:var(--farkey-gold)"></i></div>
+              <div class="stok-bar-wrap">
+                <div class="stok-bar-label"><span class="sbl-name">Cabai Rawit</span><span class="sbl-val">100g / min 500g</span></div>
+                <div class="progress-wf"><div class="progress-fill" style="width:33%;background:var(--farkey-yellow)"></div></div>
+              </div>
+              <span class="badge-status badge-hampir">Menipis</span>
+            </div>
+            <div class="stok-item">
+              <div style="width:36px;height:36px;border-radius:10px;background:#fde8e8;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fas fa-utensils" style="color:var(--farkey-red)"></i></div>
+              <div class="stok-bar-wrap">
+                <div class="stok-bar-label"><span class="sbl-name">Mie Kuning</span><span class="sbl-val">0 bks / min 10 bks</span></div>
+                <div class="progress-wf"><div class="progress-fill" style="width:0%;background:var(--farkey-red)"></div></div>
+              </div>
+              <span class="badge-status badge-habis">Habis</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AKTIVITAS TERBARU -->
+    <div class="wf-table-card">
+      <div class="wf-table-header">
+        <div class="wf-table-title"><i class="fas fa-history" style="color:var(--farkey-accent)"></i> Aktivitas Terbaru</div>
+        <button class="btn-wf btn-outline-wf btn-sm-wf" onclick="showPage('laporan')">Lihat Laporan</button>
+      </div>
+      <div>
+        <div class="activity-item">
+          <div class="activity-dot icon-green"><i class="fas fa-arrow-circle-down" style="color:var(--farkey-accent)"></i></div>
+          <div class="activity-content">
+            <div class="act-title">Stok Masuk – Kerupuk Udang</div>
+            <div class="act-sub">+2 kg dari Supplier UD Sumber Pedas · Admin Farkey</div>
+          </div>
+          <div class="activity-time">09:14</div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-dot icon-red"><i class="fas fa-arrow-circle-up" style="color:var(--farkey-red)"></i></div>
+          <div class="activity-content">
+            <div class="act-title">Stok Keluar – Cabai Rawit</div>
+            <div class="act-sub">-500 ml · Kasir Rina</div>
+          </div>
+          <div class="activity-time">08:55</div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-dot icon-green"><i class="fas fa-arrow-circle-down" style="color:var(--farkey-accent)"></i></div>
+          <div class="activity-content">
+            <div class="act-title">Stok Masuk – Gula Pasir</div>
+            <div class="act-sub">+5 kg dari Supplier UD Maju · Admin Farkey</div>
+          </div>
+          <div class="activity-time">08:30</div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-dot icon-blue"><i class="fas fa-plus-circle" style="color:#4285f4"></i></div>
+          <div class="activity-content">
+            <div class="act-title">Bahan Baru Ditambahkan – Kencur Bubuk</div>
+            <div class="act-sub">Kategori: Bumbu · Admin Farkey</div>
+          </div>
+          <div class="activity-time">Kemarin</div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PAGE 3 — DASHBOARD OWNER
+════════════════════════════════════════════════════════════════ -->
+<div class="page-section" id="page-dash-owner">
+  <aside class="wf-sidebar" id="sidebar-owner">
+    <div class="sidebar-brand">
+      <div class="brand-icon"><i class="fas fa-bowl-food"></i></div>
+      <div class="brand-text"><div class="brand-name">Kedai Farkey</div><div class="brand-sub">Role: Owner</div></div>
+    </div>
+    <div class="sidebar-section-label">Menu</div>
+    <nav class="sidebar-nav">
+      <a class="sidebar-item active" onclick="showPage('dash-owner')"><i class="fas fa-th-large"></i> Dashboard</a>
+      <a class="sidebar-item" onclick="showPage('cek-stok')"><i class="fas fa-search"></i> Cek Stok</a>
+      <a class="sidebar-item" onclick="showPage('laporan')"><i class="fas fa-chart-bar"></i> Laporan Stok</a>
+      <a class="sidebar-item" onclick="showPage('ubah-password')"><i class="fas fa-key"></i> Ubah Password</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="avatar-sm" style="background:var(--farkey-gold);color:#fff">O</div>
+        <div class="user-info"><div class="user-name">Pemilik Farkey</div><div class="user-role">Owner</div></div>
+      </div>
+    </div>
+  </aside>
+  <header class="wf-topbar">
+    <div class="topbar-title">Dashboard Owner</div>
+    <div class="topbar-actions">
+      <div class="btn-icon"><i class="fas fa-bell"></i></div>
+      <div class="topbar-user">
+        <div class="avatar-sm" style="background:var(--farkey-gold);color:#fff">O</div>
+        <div class="topbar-user-info"><div class="t-name">Pemilik Farkey</div><div class="t-role">Owner</div></div>
+      </div>
+    </div>
+  </header>
+  <main class="wf-main">
+    <div class="page-header">
+      <div class="page-header-left"><h1>Dashboard Owner</h1><p>Ringkasan kondisi stok Kedai Farkey.</p></div>
+    </div>
+    <div class="row g-3 mb-4">
+      <div class="col-6 col-md-3"><div class="stat-card"><div class="stat-icon icon-green"><i class="fas fa-check-circle"></i></div><div class="stat-label">Stok Aman</div><div class="stat-value">39</div></div></div>
+      <div class="col-6 col-md-3"><div class="stat-card"><div class="stat-icon icon-gold"><i class="fas fa-exclamation-circle"></i></div><div class="stat-label">Hampir Habis</div><div class="stat-value">6</div></div></div>
+      <div class="col-6 col-md-3"><div class="stat-card"><div class="stat-icon icon-red"><i class="fas fa-times-circle"></i></div><div class="stat-label">Stok Habis</div><div class="stat-value">3</div></div></div>
+      <div class="col-6 col-md-3"><div class="stat-card"><div class="stat-icon icon-blue"><i class="fas fa-boxes"></i></div><div class="stat-label">Total Bahan</div><div class="stat-value">48</div></div></div>
+    </div>
+    <div class="row g-3">
+      <div class="col-lg-6">
+        <div class="wf-table-card">
+          <div class="wf-table-header"><div class="wf-table-title"><i class="fas fa-chart-pie" style="color:var(--farkey-accent)"></i> Kondisi Stok Keseluruhan</div></div>
+          <div style="padding:20px">
+            <div class="chart-placeholder" style="min-height:160px">
+              <i class="fas fa-chart-pie"></i>
+              <div class="chart-label">Donut Chart – Status Stok</div>
+              <div style="display:flex;gap:16px;margin-top:8px;font-size:12px">
+                <span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--farkey-accent);margin-right:4px;vertical-align:middle"></span>Aman (81%)</span>
+                <span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--farkey-yellow);margin-right:4px;vertical-align:middle"></span>Menipis (13%)</span>
+                <span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--farkey-red);margin-right:4px;vertical-align:middle"></span>Habis (6%)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="wf-table-card">
+          <div class="wf-table-header"><div class="wf-table-title"><i class="fas fa-exclamation-triangle" style="color:var(--farkey-red)"></i> Bahan Hampir Habis</div><button class="btn-wf btn-outline-wf btn-sm-wf" onclick="showPage('cek-stok')">Detail</button></div>
+          <div>
+            <div class="kondisi-item" style="padding:10px 20px">
+              <div class="kondisi-left"><div class="kondisi-dot" style="background:var(--farkey-red)"></div><div><div class="kondisi-name">Mie Kuning</div><div class="kondisi-cat">Pelengkap</div></div></div>
+              <span class="badge-status badge-habis">Habis</span>
+            </div>
+            <div class="kondisi-item" style="padding:10px 20px">
+              <div class="kondisi-left"><div class="kondisi-dot" style="background:var(--farkey-yellow)"></div><div><div class="kondisi-name">Kerupuk Udang</div><div class="kondisi-cat">Bumbu</div></div></div>
+              <span class="badge-status badge-hampir">Menipis</span>
+            </div>
+            <div class="kondisi-item" style="padding:10px 20px">
+              <div class="kondisi-left"><div class="kondisi-dot" style="background:var(--farkey-yellow)"></div><div><div class="kondisi-name">Cabai Rawit</div><div class="kondisi-cat">Rempah</div></div></div>
+              <span class="badge-status badge-hampir">Menipis</span>
+            </div>
+            <div class="kondisi-item" style="padding:10px 20px">
+              <div class="kondisi-left"><div class="kondisi-dot" style="background:var(--farkey-yellow)"></div><div><div class="kondisi-name">Bawang Putih</div><div class="kondisi-cat">Rempah</div></div></div>
+              <span class="badge-status badge-hampir">Menipis</span>
+            </div>
+          </div>
+          <div style="padding:14px 20px;border-top:1px solid var(--farkey-border)">
+            <button class="btn-wf btn-accent-wf btn-sm-wf" onclick="showPage('laporan')"><i class="fas fa-file-alt"></i> Lihat Laporan Lengkap</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PAGE 4 — KELOLA BAHAN BAKU
+════════════════════════════════════════════════════════════════ -->
+<div class="page-section" id="page-bahan-baku">
+  <aside class="wf-sidebar"><div class="sidebar-brand"><div class="brand-icon"><i class="fas fa-bowl-food"></i></div><div class="brand-text"><div class="brand-name">Kedai Farkey</div><div class="brand-sub">Administrator</div></div></div><div class="sidebar-section-label">Utama</div><nav class="sidebar-nav"><a class="sidebar-item" onclick="showPage('dash-admin')"><i class="fas fa-th-large"></i> Dashboard</a></nav><div class="sidebar-section-label">Master Data</div><nav class="sidebar-nav"><a class="sidebar-item active"><i class="fas fa-box"></i> Bahan Baku</a><a class="sidebar-item" onclick="showPage('supplier')"><i class="fas fa-truck"></i> Supplier</a><a class="sidebar-item" onclick="showPage('kategori')"><i class="fas fa-tags"></i> Kategori</a><a class="sidebar-item" onclick="showPage('satuan')"><i class="fas fa-ruler"></i> Satuan</a></nav><div class="sidebar-section-label">Transaksi</div><nav class="sidebar-nav"><a class="sidebar-item" onclick="showPage('stok-masuk')"><i class="fas fa-arrow-circle-down"></i> Stok Masuk</a><a class="sidebar-item" onclick="showPage('stok-keluar')"><i class="fas fa-arrow-circle-up"></i> Stok Keluar</a><a class="sidebar-item" onclick="showPage('cek-stok')"><i class="fas fa-search"></i> Cek Stok</a></nav><div class="sidebar-section-label">Laporan</div><nav class="sidebar-nav"><a class="sidebar-item" onclick="showPage('laporan')"><i class="fas fa-chart-bar"></i> Laporan Stok</a></nav><div class="sidebar-footer"><div class="sidebar-user"><div class="avatar-sm">A</div><div class="user-info"><div class="user-name">Admin Farkey</div><div class="user-role">Administrator</div></div></div></div></aside>
+  <header class="wf-topbar"><div class="topbar-title">Kelola Bahan Baku</div><div class="topbar-actions"><div class="btn-icon"><i class="fas fa-bell"></i><div class="notif-dot"></div></div><div class="topbar-user"><div class="avatar-sm" style="background:#1a3a2a;color:#fff">A</div><div class="topbar-user-info"><div class="t-name">Admin Farkey</div><div class="t-role">Administrator</div></div></div></div></header>
+  <main class="wf-main">
+    <div class="page-header">
+      <div class="page-header-left"><h1>Bahan Baku</h1><p>Kelola data bahan baku Kedai Farkey</p></div>
+      <button class="btn-wf btn-primary-wf"><i class="fas fa-plus"></i> Tambah Bahan Baku</button>
+    </div>
+    <div class="wf-table-card">
+      <div class="filter-bar">
+        <div class="search-input-wrap"><i class="fas fa-search"></i><input type="text" placeholder="Cari nama bahan..."/></div>
+        <select class="filter-select"><option>Semua Kategori</option><option>Bumbu</option><option>Pelengkap</option><option>Bahan Dasar</option></select>
+        <button class="btn-wf btn-outline-wf btn-sm-wf"><i class="fas fa-filter"></i> Filter</button>
+        <div style="margin-left:auto"><span class="text-muted-sm">Menampilkan <strong>48</strong> bahan</span></div>
+      </div>
+      <div style="overflow-x:auto">
+        <table class="wf-table">
+          <thead><tr><th>#</th><th>Nama Bahan</th><th>Kategori</th><th>Satuan</th><th>Stok Saat Ini</th><th>Stok Min</th><th>Status</th><th>Aksi</th></tr></thead>
+          <tbody>
+            <tr><td class="td-num">01</td><td><div style="font-weight:600">Kerupuk Udang</div><div class="text-muted-sm">SKU: BH-001</div></td><td><span class="badge-status" style="background:#e8f5e9;color:#2e7d32">Bumbu</span></td><td>Gram</td><td class="td-num">200</td><td class="td-num">500</td><td><span class="badge-status badge-hampir"><i class="fas fa-circle" style="font-size:7px"></i> Menipis</span></td><td><div class="action-group"><button class="btn-wf btn-outline-wf btn-sm-wf"><i class="fas fa-edit"></i></button><button class="btn-wf btn-danger-wf btn-sm-wf"><i class="fas fa-trash"></i></button></div></td></tr>
+            <tr><td class="td-num">02</td><td><div style="font-weight:600">Cabai Rawit</div><div class="text-muted-sm">SKU: BH-002</div></td><td><span class="badge-status" style="background:#fff8e1;color:#7a4f00">Bahan Dasar</span></td><td>Kg</td><td class="td-num">1</td><td class="td-num">3</td><td><span class="badge-status badge-hampir"><i class="fas fa-circle" style="font-size:7px"></i> Menipis</span></td><td><div class="action-group"><button class="btn-wf btn-outline-wf btn-sm-wf"><i class="fas fa-edit"></i></button><button class="btn-wf btn-danger-wf btn-sm-wf"><i class="fas fa-trash"></i></button></div></td></tr>
+            <tr><td class="td-num">03</td><td><div style="font-weight:600">Mie Kuning</div><div class="text-muted-sm">SKU: BH-003</div></td><td><span class="badge-status" style="background:#e8f0fe;color:#1a56d4">Pelengkap</span></td><td>Pcs</td><td class="td-num">0</td><td class="td-num">12</td><td><span class="badge-status badge-habis"><i class="fas fa-circle" style="font-size:7px"></i> Habis</span></td><td><div class="action-group"><button class="btn-wf btn-outline-wf btn-sm-wf"><i class="fas fa-edit"></i></button><button class="btn-wf btn-danger-wf btn-sm-wf"><i class="fas fa-trash"></i></button></div></td></tr>
+            <tr><td class="td-num">04</td><td><div style="font-weight:600">Cabai Rawit</div><div class="text-muted-sm">SKU: BH-004</div></td><td><span class="badge-status" style="background:#fce4ec;color:#880e4f">Bumbu Kering</span></td><td>Liter</td><td class="td-num">2.5</td><td class="td-num">1</td><td><span class="badge-status badge-aman"><i class="fas fa-circle" style="font-size:7px"></i> Aman</span></td><td><div class="action-group"><button class="btn-wf btn-outline-wf btn-sm-wf"><i class="fas fa-edit"></i></button><button class="btn-wf btn-danger-wf btn-sm-wf"><i class="fas fa-trash"></i></button></div></td></tr>
+            <tr><td class="td-num">05</td><td><div style="font-weight:600">Kencur Bubuk</div><div class="text-muted-sm">SKU: BH-005</div></td><td><span class="badge-status" style="background:#e8f5e9;color:#2e7d32">Sayuran</span></td><td>Gram</td><td class="td-num">300</td><td class="td-num">100</td><td><span class="badge-status badge-aman"><i class="fas fa-circle" style="font-size:7px"></i> Aman</span></td><td><div class="action-group"><button class="btn-wf btn-outline-wf btn-sm-wf"><i class="fas fa-edit"></i></button><button class="btn-wf btn-danger-wf btn-sm-wf"><i class="fas fa-trash"></i></button></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination-wf"><div class="pg-info">Menampilkan 1–5 dari 48 data</div><div class="pg-pages"><button class="pg-btn"><i class="fas fa-chevron-left"></i></button><button class="pg-btn active">1</button><button class="pg-btn">2</button><button class="pg-btn">3</button><button class="pg-btn"><i class="fas fa-chevron-right"></i></button></div></div>
+    </div>
+  </main>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PAGE 5 — KELOLA SUPPLIER
+════════════════════════════════════════════════════════════════ -->
+<div class="page-section" id="page-supplier">
+  <aside class="wf-sidebar"><div class="sidebar-brand"><div class="brand-icon"><i class="fas fa-bowl-food"></i></div><div class="brand-text"><div class="brand-name">Kedai Farkey</div><div class="brand-sub">Administrator</div></div></div><div class="sidebar-section-label">Master Data</div><nav class="sidebar-nav"><a class="sidebar-item" onclick="showPage('bahan-baku')"><i class="fas fa-box"></i> Bahan Baku</a><a class="sidebar-item active"><i class="fas fa-truck"></i> Supplier</a><a class="sidebar-item" onclick="showPage('kategori')"><i class="fas fa-tags"></i> Kategori</a><a class="sidebar-item" onclick="showPage('satuan')"><i class="fas fa-ruler"></i> Satuan</a></nav><div class="sidebar-footer"><div class="sidebar-user"><div class="avatar-sm">A</div><div class="user-info"><div class="user-name">Admin Farkey</div><div class="user-role">Administrator</div></div></div></div></aside>
+  <header class="wf-topbar"><div class="topbar-title">Kelola Supplier</div><div class="topbar-actions"><div class="topbar-user"><div class="avatar-sm" style="background:#1a3a2a;color:#fff">A</div><div class="topbar-user-info"><div class="t-name">Admin Farkey</div><div class="t-role">Administrator</div></div></div></div></header>
+  <main class="wf-main">
+    <div class="page-header"><div class="page-header-left"><h1>Supplier</h1><p>Kelola data supplier Kedai Farkey</p></div><button class="btn-wf btn-primary-wf"><i class="fas fa-plus"></i> Tambah Supplier</button></div>
+    <div class="wf-table-card">
+      <div class="filter-bar"><div class="search-input-wrap"><i class="fas fa-search"></i><input type="text" placeholder="Cari nama supplier..."/></div><div style="margin-left:auto"><span class="text-muted-sm">Total <strong>12</strong> supplier</span></div></div>
+      <div style="overflow-x:auto">
+        <table class="wf-table">
+          <thead><tr><th>#</th><th>Nama Supplier</th><th>Alamat</th><th>Telepon</th><th>Kontak PIC</th><th>Status</th><th>Aksi</th></tr></thead>
+          <tbody>
+            <tr><td class="td-num">01</td><td><div style="font-weight:600">UD Sumber Pedas</div></td><td>Jl. Raya Bandung No. 12, Bandung</td><td class="td-num">0812-3456-7890</td><td>Pak Budi</td><td><span class="badge-status badge-aman">Aktif</span></td><td><div class="action-group"><button class="btn-wf btn-outline-wf btn-sm-wf"><i class="fas fa-edit"></i></button><button class="btn-wf btn-danger-wf btn-sm-wf"><i class="fas fa-trash"></i></button></div></td></tr>
+            <tr><td class="td-num">02</td><td><div style="font-weight:600">Toko Bumbu Nusantara</div></td><td>Jl. Pasar Rebo No. 5, Jakarta</td><td class="td-num">0877-1234-5678</td><td>Bu Sari</td><td><span class="badge-status badge-aman">Aktif</span></td><td><div class="action-group"><button class="btn-wf btn-outline-wf btn-sm-wf"><i class="fas fa-edit"></i></button><button class="btn-wf btn-danger-wf btn-sm-wf"><i class="fas fa-trash"></i></button></div></td></tr>
+            <tr><td class="td-num">03</td><td><div style="font-weight:600">CV Rempah Jaya</div></td><td>Jl. Kuningan Permai No. 8, Kuningan</td><td class="td-num">0856-9876-5432</td><td>Pak Deni</td><td><span class="badge-status badge-hampir" style="background:#fde8e8;color:#8b0000">Non-aktif</span></td><td><div class="action-group"><button class="btn-wf btn-outline-wf btn-sm-wf"><i class="fas fa-edit"></i></button><button class="btn-wf btn-danger-wf btn-sm-wf"><i class="fas fa-trash"></i></button></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination-wf"><div class="pg-info">Menampilkan 1–3 dari 12 data</div><div class="pg-pages"><button class="pg-btn active">1</button><button class="pg-btn">2</button><button class="pg-btn">3</button></div></div>
+    </div>
+  </main>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PAGE 6 — KELOLA KATEGORI
+════════════════════════════════════════════════════════════════ -->
+<div class="page-section" id="page-kategori">
+  <aside class="wf-sidebar"><div class="sidebar-brand"><div class="brand-icon"><i class="fas fa-bowl-food"></i></div><div class="brand-text"><div class="brand-name">Kedai Farkey</div><div class="brand-sub">Administrator</div></div></div><div class="sidebar-section-label">Master Data</div><nav class="sidebar-nav"><a class="sidebar-item" onclick="showPage('bahan-baku')"><i class="fas fa-box"></i> Bahan Baku</a><a class="sidebar-item" onclick="showPage('supplier')"><i class="fas fa-truck"></i> Supplier</a><a class="sidebar-item active"><i class="fas fa-tags"></i> Kategori</a><a class="sidebar-item" onclick="showPage('satuan')"><i class="fas fa-ruler"></i> Satuan</a></nav><div class="sidebar-footer"><div class="sidebar-user"><div class="avatar-sm">A</div><div class="user-info"><div class="user-name">Admin Farkey</div><div class="user-role">Administrator</div></div></div></div></aside>
+  <header class="wf-topbar"><div class="topbar-title">Kelola Kategori</div><div class="topbar-actions"><div class="topbar-user"><div class="avatar-sm" style="background:#1a3a2a;color:#fff">A</div><div class="topbar-user-info"><div class="t-name">Admin Farkey</div></div></div></div></header>
+  <main class="wf-main">
+    <div class="page-header"><div class="page-header-left"><h1>Kategori Bahan Baku</h1></div><button class="btn-wf btn-primary-wf"><i class="fas fa-plus"></i> Tambah Kategori</button></div>
+    <div class="row g-3">
+      <div class="col-lg-7">
+        <div class="wf-table-card">
+          <div class="filter-bar"><div class="search-input-wrap"><i class="fas fa-search"></i><input type="text" placeholder="Cari kategori..."/></div></div>
+          <table class="wf-table">
+            <thead><tr><th>#</th><th>Nama Kategori</th><th>Jumlah Bahan</th><th>Deskripsi</th><th>Aksi</th></tr></thead>
+            <tbody>
+              <tr><td class="td-num">01</td><td><div style="font-weight:600">Bumbu</div></td><td class="td-num">8</td><td>Cabai, bawang, kencur, dll</td><td><div class="action-group"><button class="btn-wf btn-outline-wf btn-sm-wf"><i class="fas fa-edit"></i></button><button class="btn-wf btn-danger-wf btn-sm-wf"><i class="fas fa-trash"></i></button></div></td></tr>
+              <tr><td class="td-num">02</td><td><div style="font-weight:600">Pelengkap</div></td><td class="td-num">12</td><td>Mie, kerupuk, makaroni</td><td><div class="action-group"><button class="btn-wf btn-outline-wf btn-sm-wf"><i class="fas fa-edit"></i></button><button class="btn-wf btn-danger-wf btn-sm-wf"><i class="fas fa-trash"></i></button></div></td></tr>
+              <tr><td class="td-num">03</td><td><div style="font-weight:600">Rempah</div></td><td class="td-num">6</td><td>Kencur, jahe, kunyit, dll</td><td><div class="action-group"><button class="btn-wf btn-outline-wf btn-sm-wf"><i class="fas fa-edit"></i></button><button class="btn-wf btn-danger-wf btn-sm-wf"><i class="fas fa-trash"></i></button></div></td></tr>
+              <tr><td class="td-num">04</td><td><div style="font-weight:600">Sirop</div></td><td class="td-num">9</td><td>Saus dan bumbu cair</td><td><div class="action-group"><button class="btn-wf btn-outline-wf btn-sm-wf"><i class="fas fa-edit"></i></button><button class="btn-wf btn-danger-wf btn-sm-wf"><i class="fas fa-trash"></i></button></div></td></tr>
+              <tr><td class="td-num">05</td><td><div style="font-weight:600">Teh</div></td><td class="td-num">5</td><td>Sayuran (daun bawang, dll)</td><td><div class="action-group"><button class="btn-wf btn-outline-wf btn-sm-wf"><i class="fas fa-edit"></i></button><button class="btn-wf btn-danger-wf btn-sm-wf"><i class="fas fa-trash"></i></button></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="form-card">
+          <div class="form-section-title">Tambah / Edit Kategori</div>
+          <div class="form-group-wf"><label>Nama Kategori <span style="color:var(--farkey-red)">*</span></label><input class="form-input-wf" type="text" placeholder="Contoh: Kopi"/></div>
+          <div class="form-group-wf"><label>Deskripsi</label><textarea class="form-textarea-wf" placeholder="Deskripsi kategori (opsional)..."></textarea></div>
+          <div style="display:flex;gap:10px"><button class="btn-wf btn-primary-wf"><i class="fas fa-save"></i> Simpan</button><button class="btn-wf btn-outline-wf"><i class="fas fa-times"></i> Batal</button></div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PAGE 7 — KELOLA SATUAN
+════════════════════════════════════════════════════════════════ -->
+<div class="page-section" id="page-satuan">
+  <aside class="wf-sidebar"><div class="sidebar-brand"><div class="brand-icon"><i class="fas fa-bowl-food"></i></div><div class="brand-text"><div class="brand-name">Kedai Farkey</div><div class="brand-sub">Administrator</div></div></div><div class="sidebar-section-label">Master Data</div><nav class="sidebar-nav"><a class="sidebar-item" onclick="showPage('bahan-baku')"><i class="fas fa-box"></i> Bahan Baku</a><a class="sidebar-item" onclick="showPage('supplier')"><i class="fas fa-truck"></i> Supplier</a><a class="sidebar-item" onclick="showPage('kategori')"><i class="fas fa-tags"></i> Kategori</a><a class="sidebar-item active"><i class="fas fa-ruler"></i> Satuan</a></nav><div class="sidebar-footer"><div class="sidebar-user"><div class="avatar-sm">A</div><div class="user-info"><div class="user-name">Admin Farkey</div><div class="user-role">Administrator</div></div></div></div></aside>
+  <header class="wf-topbar"><div class="topbar-title">Kelola Satuan</div></header>
+  <main class="wf-main">
+    <div class="page-header"><div class="page-header-left"><h1>Satuan Bahan Baku</h1></div><button class="btn-wf btn-primary-wf"><i class="fas fa-plus"></i> Tambah Satuan</button></div>
+    <div class="row g-3">
+      <div class="col-lg-7">
+        <div class="wf-table-card">
+          <table class="wf-table">
+            <thead><tr><th>#</th><th>Nama Satuan</th><th>Singkatan</th><th>Keterangan</th><th>Aksi</th></tr></thead>
+            <tbody>
+              <tr><td class="td-num">01</td><td><div style="font-weight:600">Kilogram</div></td><td><code>kg</code></td><td>Satuan berat</td><td><div class="action-group"><button class="btn-wf btn-outline-wf btn-sm-wf"><i class="fas fa-edit"></i></button><button class="btn-wf btn-danger-wf btn-sm-wf"><i class="fas fa-trash"></i></button></div></td></tr>
+              <tr><td class="td-num">02</td><td><div style="font-weight:600">Gram</div></td><td><code>g</code></td><td>Satuan berat kecil</td><td><div class="action-group"><button class="btn-wf btn-outline-wf btn-sm-wf"><i class="fas fa-edit"></i></button><button class="btn-wf btn-danger-wf btn-sm-wf"><i class="fas fa-trash"></i></button></div></td></tr>
+              <tr><td class="td-num">03</td><td><div style="font-weight:600">Liter</div></td><td><code>L</code></td><td>Satuan volume</td><td><div class="action-group"><button class="btn-wf btn-outline-wf btn-sm-wf"><i class="fas fa-edit"></i></button><button class="btn-wf btn-danger-wf btn-sm-wf"><i class="fas fa-trash"></i></button></div></td></tr>
+              <tr><td class="td-num">04</td><td><div style="font-weight:600">Mililiter</div></td><td><code>ml</code></td><td>Satuan volume kecil</td><td><div class="action-group"><button class="btn-wf btn-outline-wf btn-sm-wf"><i class="fas fa-edit"></i></button><button class="btn-wf btn-danger-wf btn-sm-wf"><i class="fas fa-trash"></i></button></div></td></tr>
+              <tr><td class="td-num">05</td><td><div style="font-weight:600">Pcs</div></td><td><code>pcs</code></td><td>Satuan buah/unit</td><td><div class="action-group"><button class="btn-wf btn-outline-wf btn-sm-wf"><i class="fas fa-edit"></i></button><button class="btn-wf btn-danger-wf btn-sm-wf"><i class="fas fa-trash"></i></button></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="form-card">
+          <div class="form-section-title">Tambah / Edit Satuan</div>
+          <div class="form-group-wf"><label>Nama Satuan <span style="color:var(--farkey-red)">*</span></label><input class="form-input-wf" type="text" placeholder="Contoh: Kilogram"/></div>
+          <div class="form-group-wf"><label>Singkatan <span style="color:var(--farkey-red)">*</span></label><input class="form-input-wf" type="text" placeholder="Contoh: kg"/></div>
+          <div class="form-group-wf"><label>Keterangan</label><input class="form-input-wf" type="text" placeholder="Keterangan singkat..."/></div>
+          <div style="display:flex;gap:10px"><button class="btn-wf btn-primary-wf"><i class="fas fa-save"></i> Simpan</button><button class="btn-wf btn-outline-wf"><i class="fas fa-times"></i> Batal</button></div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PAGE 8 — CEK STOK
+════════════════════════════════════════════════════════════════ -->
+<div class="page-section" id="page-cek-stok">
+  <aside class="wf-sidebar"><div class="sidebar-brand"><div class="brand-icon"><i class="fas fa-bowl-food"></i></div><div class="brand-text"><div class="brand-name">Kedai Farkey</div><div class="brand-sub">Semua Role</div></div></div><div class="sidebar-section-label">Menu</div><nav class="sidebar-nav"><a class="sidebar-item" onclick="showPage('dash-admin')"><i class="fas fa-th-large"></i> Dashboard</a><a class="sidebar-item" onclick="showPage('stok-masuk')"><i class="fas fa-arrow-circle-down"></i> Stok Masuk</a><a class="sidebar-item" onclick="showPage('stok-keluar')"><i class="fas fa-arrow-circle-up"></i> Stok Keluar</a><a class="sidebar-item active"><i class="fas fa-search"></i> Cek Stok</a></nav><div class="sidebar-footer"><div class="sidebar-user"><div class="avatar-sm">A</div><div class="user-info"><div class="user-name">Admin Farkey</div><div class="user-role">Administrator</div></div></div></div></aside>
+  <header class="wf-topbar"><div class="topbar-title">Cek Stok Bahan Baku</div></header>
+  <main class="wf-main">
+    <div class="page-header"><div class="page-header-left"><h1>Cek Stok</h1><p>Pantau kondisi stok semua bahan baku</p></div></div>
+    <!-- Status summary -->
+    <div class="row g-3 mb-4">
+      <div class="col-4"><div class="stat-card" style="text-align:center;padding:16px"><div class="stat-value" style="color:var(--farkey-accent);font-size:28px">39</div><div class="stat-label">Aman</div></div></div>
+      <div class="col-4"><div class="stat-card" style="text-align:center;padding:16px"><div class="stat-value" style="color:var(--farkey-yellow);font-size:28px">6</div><div class="stat-label">Hampir Habis</div></div></div>
+      <div class="col-4"><div class="stat-card" style="text-align:center;padding:16px"><div class="stat-value" style="color:var(--farkey-red);font-size:28px">3</div><div class="stat-label">Habis</div></div></div>
+    </div>
+    <div class="wf-table-card">
+      <div class="filter-bar">
+        <div class="search-input-wrap"><i class="fas fa-search"></i><input type="text" placeholder="Cari nama bahan..."/></div>
+        <select class="filter-select"><option>Semua Kategori</option><option>Bumbu</option><option>Pelengkap</option></select>
+        <select class="filter-select"><option>Semua Status</option><option>Aman</option><option>Hampir Habis</option><option>Habis</option></select>
+      </div>
+      <div style="overflow-x:auto">
+        <table class="wf-table">
+          <thead><tr><th>#</th><th>Nama Bahan</th><th>Kategori</th><th>Satuan</th><th>Stok</th><th>Minimum</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td class="td-num">01</td><td style="font-weight:600">Kerupuk Udang</td><td>Bumbu</td><td>Gram</td><td class="td-num" style="color:var(--farkey-red);font-weight:700">200</td><td class="td-num">500</td><td><span class="badge-status badge-hampir"><i class="fas fa-circle" style="font-size:7px"></i> Menipis</span></td></tr>
+            <tr><td class="td-num">02</td><td style="font-weight:600">Mie Kuning</td><td>Pelengkap</td><td>Pcs</td><td class="td-num" style="color:var(--farkey-red);font-weight:700">0</td><td class="td-num">12</td><td><span class="badge-status badge-habis"><i class="fas fa-circle" style="font-size:7px"></i> Habis</span></td></tr>
+            <tr><td class="td-num">03</td><td style="font-weight:600">Cabai Rawit</td><td>Sirop</td><td>Liter</td><td class="td-num">2.5</td><td class="td-num">1</td><td><span class="badge-status badge-aman"><i class="fas fa-circle" style="font-size:7px"></i> Aman</span></td></tr>
+            <tr><td class="td-num">04</td><td style="font-weight:600">Bawang Putih</td><td>Bumbu Dasar</td><td>Kg</td><td class="td-num" style="color:var(--farkey-yellow);font-weight:700">1</td><td class="td-num">3</td><td><span class="badge-status badge-hampir"><i class="fas fa-circle" style="font-size:7px"></i> Menipis</span></td></tr>
+            <tr><td class="td-num">05</td><td style="font-weight:600">Kencur Bubuk</td><td>Teh</td><td>Gram</td><td class="td-num">300</td><td class="td-num">100</td><td><span class="badge-status badge-aman"><i class="fas fa-circle" style="font-size:7px"></i> Aman</span></td></tr>
+            <tr><td class="td-num">06</td><td style="font-weight:600">Telur Ayam</td><td>Topping</td><td>Kaleng</td><td class="td-num" style="color:var(--farkey-red);font-weight:700">0</td><td class="td-num">5</td><td><span class="badge-status badge-habis"><i class="fas fa-circle" style="font-size:7px"></i> Habis</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination-wf"><div class="pg-info">Menampilkan 1–6 dari 48 data</div><div class="pg-pages"><button class="pg-btn active">1</button><button class="pg-btn">2</button><button class="pg-btn">3</button></div></div>
+    </div>
+  </main>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PAGE 9 — INPUT STOK MASUK
+════════════════════════════════════════════════════════════════ -->
+<div class="page-section" id="page-stok-masuk">
+  <aside class="wf-sidebar"><div class="sidebar-brand"><div class="brand-icon"><i class="fas fa-bowl-food"></i></div><div class="brand-text"><div class="brand-name">Kedai Farkey</div><div class="brand-sub">Transaksi</div></div></div><div class="sidebar-section-label">Menu</div><nav class="sidebar-nav"><a class="sidebar-item" onclick="showPage('dash-admin')"><i class="fas fa-th-large"></i> Dashboard</a><a class="sidebar-item active"><i class="fas fa-arrow-circle-down"></i> Stok Masuk</a><a class="sidebar-item" onclick="showPage('stok-keluar')"><i class="fas fa-arrow-circle-up"></i> Stok Keluar</a><a class="sidebar-item" onclick="showPage('cek-stok')"><i class="fas fa-search"></i> Cek Stok</a></nav><div class="sidebar-footer"><div class="sidebar-user"><div class="avatar-sm">A</div><div class="user-info"><div class="user-name">Admin Farkey</div><div class="user-role">Administrator</div></div></div></div></aside>
+  <header class="wf-topbar"><div class="topbar-title">Input Stok Masuk</div></header>
+  <main class="wf-main">
+    <div class="page-header"><div class="page-header-left"><h1>Input Stok Masuk</h1><p>Catat penerimaan bahan baku dari supplier</p></div></div>
+    <div class="row g-3">
+      <div class="col-lg-8">
+        <div class="form-card">
+          <div class="form-section-title"><i class="fas fa-arrow-circle-down" style="color:var(--farkey-accent)"></i> Data Stok Masuk</div>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="form-group-wf"><label>Pilih Bahan Baku <span style="color:var(--farkey-red)">*</span></label>
+                <select class="form-select-wf"><option value="">-- Pilih Bahan Baku --</option><option>Kerupuk Udang</option><option>Cabai Rawit</option><option>Mie Kuning</option><option>Cabai Rawit</option></select>
+                <div class="hint"><i class="fas fa-info-circle"></i> Stok saat ini: <strong>–</strong></div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group-wf"><label>Jumlah <span style="color:var(--farkey-red)">*</span></label>
+                <div style="display:flex;gap:8px;align-items:center">
+                  <input class="form-input-wf" type="number" placeholder="0" style="text-align:right"/>
+                  <span style="padding:10px 14px;background:#f0f0f0;border-radius:10px;font-size:13px;font-weight:600;color:var(--farkey-muted)">Gram</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group-wf"><label>Tanggal Masuk <span style="color:var(--farkey-red)">*</span></label><input class="form-input-wf" type="date" value="2026-06-05"/></div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group-wf"><label>Supplier</label>
+                <select class="form-select-wf"><option value="">-- Pilih Supplier --</option><option>UD Sumber Pedas</option><option>Toko Bumbu Nusantara</option><option>CV Rempah Jaya</option></select>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group-wf"><label>Keterangan</label><textarea class="form-textarea-wf" placeholder="Catatan tambahan (opsional)..."></textarea></div>
+            </div>
+          </div>
+          <hr class="form-divider"/>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn-wf btn-accent-wf"><i class="fas fa-save"></i> Simpan Stok Masuk</button>
+            <button class="btn-wf btn-outline-wf"><i class="fas fa-redo"></i> Reset Form</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="wf-table-card">
+          <div class="wf-table-header"><div class="wf-table-title"><i class="fas fa-history" style="color:var(--farkey-accent)"></i> Riwayat Hari Ini</div></div>
+          <div>
+            <div class="activity-item">
+              <div class="activity-dot icon-green"><i class="fas fa-arrow-down" style="color:var(--farkey-accent);font-size:12px"></i></div>
+              <div class="activity-content"><div class="act-title">Kerupuk Udang</div><div class="act-sub">+2 kg · UD Sumber Pedas</div></div>
+              <div class="activity-time">09:14</div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot icon-green"><i class="fas fa-arrow-down" style="color:var(--farkey-accent);font-size:12px"></i></div>
+              <div class="activity-content"><div class="act-title">Cabai Rawit</div><div class="act-sub">+5 kg · Toko Bumbu Nusantara</div></div>
+              <div class="activity-time">08:30</div>
+            </div>
+          </div>
+          <div style="padding:12px 20px;text-align:center;border-top:1px solid var(--farkey-border)"><button class="btn-wf btn-outline-wf btn-sm-wf" style="width:100%" onclick="showPage('laporan')"><i class="fas fa-list"></i> Lihat Semua Riwayat</button></div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PAGE 10 — INPUT STOK KELUAR
+════════════════════════════════════════════════════════════════ -->
+<div class="page-section" id="page-stok-keluar">
+  <aside class="wf-sidebar"><div class="sidebar-brand"><div class="brand-icon"><i class="fas fa-bowl-food"></i></div><div class="brand-text"><div class="brand-name">Kedai Farkey</div><div class="brand-sub">Transaksi</div></div></div><div class="sidebar-section-label">Menu</div><nav class="sidebar-nav"><a class="sidebar-item" onclick="showPage('dash-admin')"><i class="fas fa-th-large"></i> Dashboard</a><a class="sidebar-item" onclick="showPage('stok-masuk')"><i class="fas fa-arrow-circle-down"></i> Stok Masuk</a><a class="sidebar-item active"><i class="fas fa-arrow-circle-up"></i> Stok Keluar</a><a class="sidebar-item" onclick="showPage('cek-stok')"><i class="fas fa-search"></i> Cek Stok</a></nav><div class="sidebar-footer"><div class="sidebar-user"><div class="avatar-sm">A</div><div class="user-info"><div class="user-name">Admin Farkey</div><div class="user-role">Administrator</div></div></div></div></aside>
+  <header class="wf-topbar"><div class="topbar-title">Input Stok Keluar</div></header>
+  <main class="wf-main">
+    <div class="page-header"><div class="page-header-left"><h1>Input Stok Keluar</h1><p>Catat penggunaan atau pengeluaran bahan baku</p></div></div>
+    <div class="row g-3">
+      <div class="col-lg-8">
+        <div class="form-card">
+          <div class="form-section-title"><i class="fas fa-arrow-circle-up" style="color:var(--farkey-red)"></i> Data Stok Keluar</div>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="form-group-wf"><label>Pilih Bahan Baku <span style="color:var(--farkey-red)">*</span></label>
+                <select class="form-select-wf"><option value="">-- Pilih Bahan Baku --</option><option>Kerupuk Udang</option><option>Cabai Rawit</option><option>Cabai Rawit</option></select>
+                <div class="hint"><i class="fas fa-info-circle"></i> Stok tersedia: <strong>–</strong></div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group-wf"><label>Jumlah Keluar <span style="color:var(--farkey-red)">*</span></label>
+                <div style="display:flex;gap:8px;align-items:center">
+                  <input class="form-input-wf" type="number" placeholder="0" style="text-align:right"/>
+                  <span style="padding:10px 14px;background:#fde8e8;border-radius:10px;font-size:13px;font-weight:600;color:var(--farkey-red)">–</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group-wf"><label>Tanggal Keluar <span style="color:var(--farkey-red)">*</span></label><input class="form-input-wf" type="date" value="2026-06-05"/></div>
+            </div>
+            <div class="col-12">
+              <div class="form-group-wf"><label>Keterangan / Alasan</label><textarea class="form-textarea-wf" placeholder="Contoh: Digunakan untuk produksi menu hari ini..."></textarea></div>
+            </div>
+          </div>
+          <!-- Warning alert -->
+          <div style="background:#fdf3dc;border:1px solid #f0a500;border-radius:10px;padding:12px 16px;margin:16px 0;display:flex;gap:10px;align-items:flex-start">
+            <i class="fas fa-exclamation-triangle" style="color:var(--farkey-gold);margin-top:2px"></i>
+            <div style="font-size:13px;color:#5a3e00"><strong>Peringatan:</strong> Pastikan jumlah keluar tidak melebihi stok yang tersedia.</div>
+          </div>
+          <hr class="form-divider"/>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn-wf btn-danger-wf" style="background:var(--farkey-red);color:#fff"><i class="fas fa-save"></i> Simpan Stok Keluar</button>
+            <button class="btn-wf btn-outline-wf"><i class="fas fa-redo"></i> Reset Form</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="wf-table-card">
+          <div class="wf-table-header"><div class="wf-table-title"><i class="fas fa-history" style="color:var(--farkey-red)"></i> Riwayat Keluar Hari Ini</div></div>
+          <div>
+            <div class="activity-item">
+              <div class="activity-dot icon-red"><i class="fas fa-arrow-up" style="color:var(--farkey-red);font-size:12px"></i></div>
+              <div class="activity-content"><div class="act-title">Cabai Rawit</div><div class="act-sub">-500 ml · Kasir Rina</div></div>
+              <div class="activity-time">08:55</div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot icon-red"><i class="fas fa-arrow-up" style="color:var(--farkey-red);font-size:12px"></i></div>
+              <div class="activity-content"><div class="act-title">Cabai Rawit</div><div class="act-sub">-300 g · Kasir Rina</div></div>
+              <div class="activity-time">08:20</div>
+            </div>
+          </div>
+          <div style="padding:12px 20px;text-align:center;border-top:1px solid var(--farkey-border)"><button class="btn-wf btn-outline-wf btn-sm-wf" style="width:100%" onclick="showPage('laporan')"><i class="fas fa-list"></i> Lihat Semua Riwayat</button></div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PAGE 11 — LAPORAN STOK
+════════════════════════════════════════════════════════════════ -->
+<div class="page-section" id="page-laporan">
+  <aside class="wf-sidebar"><div class="sidebar-brand"><div class="brand-icon"><i class="fas fa-bowl-food"></i></div><div class="brand-text"><div class="brand-name">Kedai Farkey</div><div class="brand-sub">Laporan</div></div></div><div class="sidebar-section-label">Menu</div><nav class="sidebar-nav"><a class="sidebar-item" onclick="showPage('dash-admin')"><i class="fas fa-th-large"></i> Dashboard</a><a class="sidebar-item" onclick="showPage('cek-stok')"><i class="fas fa-search"></i> Cek Stok</a><a class="sidebar-item active"><i class="fas fa-chart-bar"></i> Laporan Stok</a></nav><div class="sidebar-footer"><div class="sidebar-user"><div class="avatar-sm">A</div><div class="user-info"><div class="user-name">Admin Farkey</div></div></div></div></aside>
+  <header class="wf-topbar"><div class="topbar-title">Laporan Stok</div></header>
+  <main class="wf-main">
+    <div class="page-header">
+      <div class="page-header-left"><h1>Laporan Stok Bahan Baku</h1><p>Riwayat transaksi masuk dan keluar bahan baku</p></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn-wf btn-danger-wf" style="background:#e74c3c;color:#fff"><i class="fas fa-file-pdf"></i> Export PDF</button>
+        <button class="btn-wf btn-gold-wf"><i class="fas fa-file-excel"></i> Export Excel</button>
+      </div>
+    </div>
+    <!-- Filter -->
+    <div class="form-card mb-4" style="padding:20px">
+      <div class="form-section-title" style="margin-bottom:14px"><i class="fas fa-filter"></i> Filter Laporan</div>
+      <div class="row g-3 align-items-end">
+        <div class="col-md-3"><label class="form-label-sm">Tanggal Mulai</label><input class="form-input-wf" type="date" value="2026-06-01"/></div>
+        <div class="col-md-3"><label class="form-label-sm">Tanggal Akhir</label><input class="form-input-wf" type="date" value="2026-06-05"/></div>
+        <div class="col-md-3"><label class="form-label-sm">Pilih Bahan</label><select class="form-select-wf"><option>Semua Bahan</option><option>Kerupuk Udang</option><option>Cabai Rawit</option></select></div>
+        <div class="col-md-3"><label class="form-label-sm">Jenis Transaksi</label><select class="form-select-wf"><option>Semua Transaksi</option><option>Stok Masuk</option><option>Stok Keluar</option></select></div>
+        <div class="col-12 d-flex gap-2"><button class="btn-wf btn-primary-wf"><i class="fas fa-search"></i> Tampilkan</button><button class="btn-wf btn-outline-wf"><i class="fas fa-times"></i> Reset</button></div>
+      </div>
+    </div>
+    <!-- Table -->
+    <div class="wf-table-card">
+      <div class="wf-table-header">
+        <div class="wf-table-title">Hasil Laporan</div>
+        <div style="font-size:12px;color:var(--farkey-muted)">Periode: 01 Jun – 05 Jun 2026</div>
+      </div>
+      <div style="overflow-x:auto">
+        <table class="wf-table">
+          <thead><tr><th>#</th><th>Tanggal</th><th>Nama Bahan</th><th>Jenis</th><th>Jumlah</th><th>Satuan</th><th>Supplier/Ket</th><th>Dicatat Oleh</th></tr></thead>
+          <tbody>
+            <tr><td class="td-num">001</td><td class="td-num">05-06-2026</td><td style="font-weight:600">Kerupuk Udang</td><td><span class="badge-status badge-masuk"><i class="fas fa-arrow-down" style="font-size:9px"></i> Masuk</span></td><td class="td-num">+2,000</td><td>Gram</td><td>UD Sumber Pedas</td><td>Admin Farkey</td></tr>
+            <tr><td class="td-num">002</td><td class="td-num">05-06-2026</td><td style="font-weight:600">Cabai Rawit</td><td><span class="badge-status badge-habis" style="background:#fde8e8;color:#8b0000"><i class="fas fa-arrow-up" style="font-size:9px"></i> Keluar</span></td><td class="td-num">-200</td><td>Gram</td><td>Produksi seblak</td><td>Kasir Rina</td></tr>
+            <tr><td class="td-num">003</td><td class="td-num">05-06-2026</td><td style="font-weight:600">Kencur Bubuk</td><td><span class="badge-status badge-masuk"><i class="fas fa-arrow-down" style="font-size:9px"></i> Masuk</span></td><td class="td-num">+5,000</td><td>Gram</td><td>Toko Bumbu Nusantara</td><td>Admin Farkey</td></tr>
+            <tr><td class="td-num">004</td><td class="td-num">04-06-2026</td><td style="font-weight:600">Mie Kuning</td><td><span class="badge-status badge-habis" style="background:#fde8e8;color:#8b0000"><i class="fas fa-arrow-up" style="font-size:9px"></i> Keluar</span></td><td class="td-num">-300</td><td>Gram</td><td>Produksi seblak harian</td><td>Kasir Rina</td></tr>
+            <tr><td class="td-num">005</td><td class="td-num">03-06-2026</td><td style="font-weight:600">Kencur Bubuk</td><td><span class="badge-status badge-masuk"><i class="fas fa-arrow-down" style="font-size:9px"></i> Masuk</span></td><td class="td-num">+500</td><td>Gram</td><td>Toko Bumbu Nusantara</td><td>Admin Farkey</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination-wf"><div class="pg-info">Menampilkan 1–5 dari 87 transaksi</div><div class="pg-pages"><button class="pg-btn active">1</button><button class="pg-btn">2</button><button class="pg-btn">3</button><button class="pg-btn">...</button><button class="pg-btn">18</button></div></div>
+    </div>
+  </main>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PAGE 12 — UBAH PASSWORD
+════════════════════════════════════════════════════════════════ -->
+<div class="page-section" id="page-ubah-password">
+  <aside class="wf-sidebar"><div class="sidebar-brand"><div class="brand-icon"><i class="fas fa-bowl-food"></i></div><div class="brand-text"><div class="brand-name">Kedai Farkey</div><div class="brand-sub">Semua Role</div></div></div><div class="sidebar-section-label">Akun Saya</div><nav class="sidebar-nav"><a class="sidebar-item" onclick="showPage('dash-admin')"><i class="fas fa-th-large"></i> Dashboard</a><a class="sidebar-item active"><i class="fas fa-key"></i> Ubah Password</a><a class="sidebar-item" onclick="showPage('login')"><i class="fas fa-sign-out-alt"></i> Keluar</a></nav><div class="sidebar-footer"><div class="sidebar-user"><div class="avatar-sm">A</div><div class="user-info"><div class="user-name">Admin Farkey</div><div class="user-role">Administrator</div></div></div></div></aside>
+  <header class="wf-topbar"><div class="topbar-title">Ubah Password</div></header>
+  <main class="wf-main">
+    <div class="page-header"><div class="page-header-left"><h1>Ubah Password</h1><p>Ganti kata sandi akun Anda</p></div></div>
+    <div class="row g-3">
+      <div class="col-lg-5">
+        <div class="password-card">
+          <div class="form-section-title"><i class="fas fa-shield-alt" style="color:var(--farkey-accent)"></i> Keamanan Akun</div>
+          <div class="form-group-wf">
+            <label>Password Lama <span style="color:var(--farkey-red)">*</span></label>
+            <div class="input-icon-wrap" style="position:relative">
+              <i class="fas fa-lock icon" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--farkey-muted)"></i>
+              <input class="form-input-wf" type="password" placeholder="Masukkan password lama" style="padding-left:36px"/>
+            </div>
+          </div>
+          <div class="form-group-wf">
+            <label>Password Baru <span style="color:var(--farkey-red)">*</span></label>
+            <div class="input-icon-wrap" style="position:relative">
+              <i class="fas fa-lock icon" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--farkey-muted)"></i>
+              <input class="form-input-wf" type="password" placeholder="Minimal 8 karakter" style="padding-left:36px"/>
+            </div>
+            <div class="password-strength">
+              <div class="ps-bar filled weak"></div>
+              <div class="ps-bar filled medium"></div>
+              <div class="ps-bar"></div>
+              <div class="ps-bar"></div>
+            </div>
+            <div class="hint" style="margin-top:6px">Kekuatan: <strong style="color:var(--farkey-yellow)">Sedang</strong></div>
+          </div>
+          <div class="form-group-wf">
+            <label>Konfirmasi Password Baru <span style="color:var(--farkey-red)">*</span></label>
+            <div class="input-icon-wrap" style="position:relative">
+              <i class="fas fa-lock icon" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--farkey-muted)"></i>
+              <input class="form-input-wf" type="password" placeholder="Ulangi password baru" style="padding-left:36px"/>
+            </div>
+          </div>
+          <div style="background:var(--farkey-accent-soft);border-radius:10px;padding:12px 14px;margin-bottom:20px;font-size:12px;color:#1a6840">
+            <i class="fas fa-info-circle"></i> <strong>Tips:</strong> Gunakan kombinasi huruf besar, kecil, angka, dan simbol.
+          </div>
+          <button class="btn-wf btn-primary-wf" style="width:100%"><i class="fas fa-save"></i> Simpan Password Baru</button>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="form-card" style="background:#f8faf9">
+          <div class="form-section-title" style="color:var(--farkey-muted)">Info Akun</div>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;align-items:center;gap:12px"><div class="avatar-sm" style="width:52px;height:52px;font-size:20px;background:var(--farkey-primary);color:#fff;border-radius:14px">A</div><div><div style="font-size:16px;font-weight:800;color:var(--farkey-primary)">Admin Farkey</div><div style="font-size:12px;color:var(--farkey-muted)">Administrator</div></div></div>
+            <hr style="border-color:var(--farkey-border)"/>
+            <div><div class="text-muted-sm">Username</div><div style="font-weight:600;font-family:'DM Mono',monospace">admin_farkey</div></div>
+            <div><div class="text-muted-sm">Password terakhir diubah</div><div style="font-weight:600">15 Mei 2026</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════════════════════════════ -->
+<script>
+  const pageMap = {
+    'login':'page-login','dash-admin':'page-dash-admin','dash-owner':'page-dash-owner',
+    'bahan-baku':'page-bahan-baku','supplier':'page-supplier','kategori':'page-kategori',
+    'satuan':'page-satuan','cek-stok':'page-cek-stok','stok-masuk':'page-stok-masuk',
+    'stok-keluar':'page-stok-keluar','laporan':'page-laporan','ubah-password':'page-ubah-password'
+  };
+
+  function showPage(id) {
+    document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+    const el = document.getElementById('page-' + id);
+    if (el) { el.classList.add('active'); window.scrollTo(0,0); }
+    // update active nav button
+    document.querySelectorAll('#nav-menu button').forEach(b => b.classList.remove('active'));
+    closeNav();
+  }
+
+  function toggleNav() {
+    const menu = document.getElementById('nav-menu');
+    menu.style.display = menu.style.display === 'none' ? 'flex' : 'none';
+  }
+  function closeNav() {
+    document.getElementById('nav-menu').style.display = 'none';
+  }
+</script>
+</body>
+</html>
